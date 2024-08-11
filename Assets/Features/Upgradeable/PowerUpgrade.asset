@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5428e98c03894206a6ee0773913bac0f, type: 3}
+  m_Name: PowerUpgrade
+  m_EditorClassIdentifier: 
+  UpgradeName: Power
+  Description: Pull Power
+  Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  Level: {fileID: 11400000, guid: e280aa6ab18cc8a43b43c19f65771751, type: 2}
+  MaxLevel: 15
+  UseCostCurve: 0
+  CostCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  UseValueMappingCurve: 1
+  ValueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1.9333333
+      outSlope: 1.9333333
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15
+      value: 30
+      inSlope: 1.9333333
+      outSlope: 1.9333333
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

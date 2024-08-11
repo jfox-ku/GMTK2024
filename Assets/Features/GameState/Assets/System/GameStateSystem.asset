@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a388636734dc4367ba0acb49eea20455, type: 3}
+  m_Name: GameStateSystem
+  m_EditorClassIdentifier: 
+  GameStateReference: {fileID: 11400000, guid: 4882f7cc3961ffb49ab340c607907b8d, type: 2}
+  StateInstances:
+    GameStartState:
+      Name: GameStartState
+      OnGameStart: {fileID: 11400000, guid: 60d9d0fe9dbf6ac4896555d2cfdcdece, type: 2}
+    GameShopState:
+      Name: GameShopState
+      OnGameShop: {fileID: 11400000, guid: 0acfd2012c18e3341915a330cec55ac9, type: 2}
+    GamePlayingState:
+      Name: GamePlayingState
+      OnGamePlaying: {fileID: 11400000, guid: 75c7e2659e9d55a42b99c2354725bdb3, type: 2}
+    GameOverStateWin:
+      Name: GameLoseState
+      IsWin: 0
+      OnGameOver: {fileID: 11400000, guid: 9bb6c45a44c4ef245b82f94e0ce0307d, type: 2}
+    GameOverStateLose:
+      Name: GameWinState
+      IsWin: 1
+      OnGameOver: {fileID: 11400000, guid: ec1b6a0735b7e85409cbca70fe40ee80, type: 2}
