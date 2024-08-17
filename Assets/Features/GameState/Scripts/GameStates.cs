@@ -16,14 +16,14 @@ namespace DefaultNamespace
             public override IEnumerator Enter()
             {
                 Debug.Log("Entering GameStartState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 OnGameStart.Raise();
             }
 
             public override IEnumerator Exit()
             {
                 Debug.Log("Exiting GameStartState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 yield break;
             }
         }
@@ -36,14 +36,14 @@ namespace DefaultNamespace
             public override IEnumerator Enter()
             {
                 Debug.Log("Entering GameShopState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 OnGameShop.Raise();
             }
 
             public override IEnumerator Exit()
             {
                 Debug.Log("Exiting GameShopState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 yield break;
             }
         }
@@ -56,14 +56,14 @@ namespace DefaultNamespace
             public override IEnumerator Enter()
             {
                 Debug.Log("Entering GamePlayingState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 OnGamePlaying.Raise();
             }
 
             public override IEnumerator Exit()
             {
                 Debug.Log("Exiting GamePlayingState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 yield break;
             }
         }
@@ -77,14 +77,14 @@ namespace DefaultNamespace
             public override IEnumerator Enter()
             {
                 Debug.Log("Entering GameOverState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 OnGameOver.Raise();
             }
 
             public override IEnumerator Exit()
             {
                 Debug.Log("Exiting GameOverState");
-                yield return new WaitForSeconds(1f);
+                yield return null;
                 yield break;
             }
         }

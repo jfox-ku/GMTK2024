@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
-    [CreateAssetMenu(fileName = "GameStateSystem", menuName = "Game Systems/GameStateSystem")]
+    [CreateAssetMenu(fileName = "GameStateSystem", menuName = "Systems/GameStateSystem")]
     public class GameStateSystem : ScriptableObject, IInit, ICleanUp
     {
         [Header("Variables")]
@@ -22,10 +22,11 @@ namespace DefaultNamespace
         
         public void Init()
         {
+            Lock = false;
             SetState(StateInstances.GameStartState);
         }
 
-        private void SetStateFromName(string name)
+        public void SetStateFromName(string name)
         {
             SetState(StateInstances.GetStateFromName(name));
         }
@@ -35,14 +36,14 @@ namespace DefaultNamespace
             GameStateReference.Value = null;
         }
         
-        public void SetState(GameState state)
+        private void SetState(GameState state)
         {
             if (!Application.isPlaying) return;
             if (GameStateReference.Value != null && state.Name.CompareTo(GameStateReference.Value.Name) == 0) return;
             GameRoot.CoroutineRunner.StartCoroutine(ChangeState(state));
         }
         
-        public IEnumerator ChangeState(GameState state)
+        private IEnumerator ChangeState(GameState state)
         {
             if (Lock)
             {
@@ -77,7 +78,6 @@ namespace DefaultNamespace
                 }
 
                 throw new Exception("GameState not found exception: " + name);
-                return null;
             }
 
             public IEnumerable<GameState> AllStates()

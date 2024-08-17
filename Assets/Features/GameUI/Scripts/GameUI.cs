@@ -22,10 +22,9 @@ namespace DefaultNamespace
         public static readonly List<string> UINames = new List<string>()
         {
             "MainMenu",
-            "EditMenu", 
             "Gameplay", 
-            "Pause", 
-            "RoundOver",
+            "Pause",
+            "Shop",
             "GameOver", 
         };
         [Dropdown("UINames")]
@@ -42,6 +41,8 @@ namespace DefaultNamespace
         {
             var tw = CanvasGroup.DOFade(1f, 0.25f);
             _isShown = true;
+            CanvasGroup.blocksRaycasts = true;
+            CanvasGroup.interactable = true;
             return tw;
         }
 
@@ -49,6 +50,8 @@ namespace DefaultNamespace
         {
             var tw = CanvasGroup.DOFade(0f, 0.25f);
             _isShown  = false;
+            CanvasGroup.blocksRaycasts = false;
+            CanvasGroup.interactable = false;
             return tw;
         }
 

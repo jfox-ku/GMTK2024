@@ -15,3 +15,6 @@ MonoBehaviour:
   UIParentName: GameUI
   GameUIPrefabs: []
   ShowUI: {fileID: 11400000, guid: 3e2c52afbffbae1459d8128c433a3c4f, type: 2}
+  OnGameStart: {fileID: 11400000, guid: 60d9d0fe9dbf6ac4896555d2cfdcdece, type: 2}
+  OnGameLose: {fileID: 11400000, guid: 9bb6c45a44c4ef245b82f94e0ce0307d, type: 2}
+  OnGamePlay: {fileID: 11400000, guid: 75c7e2659e9d55a42b99c2354725bdb3, type: 2}

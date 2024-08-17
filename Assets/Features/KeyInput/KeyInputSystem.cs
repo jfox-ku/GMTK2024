@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Features.KeyInput
 {
-    [CreateAssetMenu(menuName = "KeyInputSystem")]
+    [CreateAssetMenu(menuName = "Systems/KeyInputSystem")]
     public class KeyInputSystem : ScriptableObject, IInit, IExecute
     {
         public KeyCode SlimeGrowKey;

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Features.Slime
 {
-    [CreateAssetMenu(menuName = "SlimeControllerSystem")]
+    [CreateAssetMenu(menuName = "Systems/SlimeControllerSystem")]
     public class SlimeControllerSystem: ScriptableObject, IInit, ICleanUp
     {
         [HorizontalLine(2, EColor.Green)]
@@ -41,8 +41,17 @@ namespace Features.Slime
         private SlimeMono _slimeMono;
 
         private Vector3 clampedValue;
+
+        [HorizontalLine(2, EColor.Blue)]
+        public GameEvent GamePlayingEvent;
+        
         
         public void Init()
+        {
+            GamePlayingEvent.AddListener(OnGamePlatingStateHandler);
+        }
+
+        private void OnGamePlatingStateHandler()
         {
             _slimeMono = Instantiate(SlimePrefab).GetComponent<SlimeMono>();
             _slimeMono.SetJointMotor(0,0);
