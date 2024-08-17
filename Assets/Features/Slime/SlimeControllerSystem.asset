@@ -16,8 +16,9 @@ MonoBehaviour:
   SlimeMaxScale: {fileID: 11400000, guid: 312257213ad62cd4ea709e8d44a73ccf, type: 2}
   SlimeMinScale: {fileID: 11400000, guid: 565e45b732d519c4b881e75f212c213b, type: 2}
   MaxMotorForce: 300
-  TargetMotorVelocity: 300
-  MotorForceLerpAmount: 0.01
+  TargetMotorVelocity: -300
+  MotorDirection: {fileID: 0}
+  MotorForceLerpAmount: 0.1
   SlimeGrow: {fileID: 11400000, guid: ff04e88ece8a2344bb43ee63a5d067c4, type: 2}
   SlimeShrink: {fileID: 11400000, guid: 2403154c34301544bb4c1e5aad271054, type: 2}
   HammerGrow: {fileID: 11400000, guid: 0eb7dd7b5c7b5a048bb58e7abd44437f, type: 2}

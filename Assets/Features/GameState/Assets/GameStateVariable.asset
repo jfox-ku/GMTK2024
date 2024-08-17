@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameStateVariable
   m_EditorClassIdentifier: 
   _value:
-    Name: GameState
+    Name: GameStartState
   _readOnly: 0
   _raiseWarning: 1
   _isClamped: 0
@@ -23,17 +23,4 @@ MonoBehaviour:
     Name: GameState
   _event:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 0c2a6031ed26b9f40ba7cd1203a20a9e, type: 2}
-        m_TargetAssemblyTypeName: ScriptableObjectArchitecture.GameEventBase`1[[DefaultNamespace.GameState,
-          Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []

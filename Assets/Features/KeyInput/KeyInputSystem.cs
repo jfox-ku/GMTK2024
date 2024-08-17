@@ -13,6 +13,7 @@ namespace Features.KeyInput
         public KeyCode HammerGrowKey;
         public KeyCode HammerShrinkKey;
         public KeyCode AddForceKey;
+        public KeyCode SwitchMotorDirection;
         
         [HorizontalLine(2, EColor.Blue)]
         public BoolVariable SlimeGrow;
@@ -20,7 +21,7 @@ namespace Features.KeyInput
         public BoolVariable HammerGrow;
         public BoolVariable HammerShrink;
         public BoolVariable AddForce;
-        
+        public IntVariable MotorDirection;
         
         public void Init()
         {
@@ -76,6 +77,11 @@ namespace Features.KeyInput
             else if (AddForce.Value)
             {
                 AddForce.Value = false;
+            }
+
+            if (Input.GetKeyDown(SwitchMotorDirection))
+            {
+                MotorDirection.Value = MotorDirection.Value == 1 ? -1 : 1;
             }
         }
     }

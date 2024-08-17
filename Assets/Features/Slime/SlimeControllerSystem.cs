@@ -20,6 +20,9 @@ namespace Features.Slime
         [HorizontalLine(2, EColor.Blue)]
         public float MaxMotorForce;
         public float TargetMotorVelocity;
+        public IntVariable MotorDirection;
+        private int MotorDirectionValue => (int)Mathf.Sign(MotorDirection.Value);
+        
         public float MotorForceLerpAmount = 0.1f;
         
         [HorizontalLine(2, EColor.Blue)]
@@ -69,13 +72,13 @@ namespace Features.Slime
                 {
                     var hinge = _slimeMono.Joint;
                     var lerp = Mathf.Lerp(hinge.motor.force, MaxMotorForce, MotorForceLerpAmount);
-                    _slimeMono.SetJointMotor(MaxMotorForce,lerp);
+                    _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
                 }
                 else
                 {
                     var hinge = _slimeMono.Joint;
                     var lerp = Mathf.Lerp(hinge.motor.force, 0, MotorForceLerpAmount);
-                    _slimeMono.SetJointMotor(MaxMotorForce,lerp);
+                    _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
                 }
 
                 yield return null;
