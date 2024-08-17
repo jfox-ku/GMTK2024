@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: SlimeControllerSystem
   m_EditorClassIdentifier: 
   SlimePrefab: {fileID: 7940099429070855354, guid: 32b7231f4ee783440b3ad6b903800946, type: 3}
-  SlimeMaxScale: {fileID: 11400000, guid: 312257213ad62cd4ea709e8d44a73ccf, type: 2}
-  SlimeMinScale: {fileID: 11400000, guid: 565e45b732d519c4b881e75f212c213b, type: 2}
+  SlimeMaxScale: {fileID: 11400000, guid: 853fb5bd0c3ad41398f69e1f9a3a646a, type: 2}
+  SlimeMinScale: {fileID: 11400000, guid: 1522b676dcc494cbab0292bf18c679df, type: 2}
+  HammerMaxScale: {fileID: 11400000, guid: 2262168cbfd854c67b8a394314ef9587, type: 2}
+  HammerMinScale: {fileID: 11400000, guid: aade3adb8ca4a46fbb77718f295be656, type: 2}
   MaxMotorForce: 300
   TargetMotorVelocity: -300
-  MotorDirection: {fileID: 0}
+  MotorDirection: {fileID: 11400000, guid: 10fcdd4369d454ce786c1598bfb3c607, type: 2}
   MotorForceLerpAmount: 0.1
   SlimeGrow: {fileID: 11400000, guid: ff04e88ece8a2344bb43ee63a5d067c4, type: 2}
   SlimeShrink: {fileID: 11400000, guid: 2403154c34301544bb4c1e5aad271054, type: 2}

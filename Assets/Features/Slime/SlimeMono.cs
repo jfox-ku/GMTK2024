@@ -13,15 +13,22 @@ namespace Features.Slime
         public Vector3 SlimeScale => SlimeRB.transform.localScale;
         public Vector3 HammerScale => HammerRB.transform.localScale;
 
+        private int massMultiplier = 10;
+        private float forceMult;
+
         public void SetSlimeScale(Vector3 scale)
         {
             SlimeRB.transform.localScale = scale;
+            SlimeRB.mass = scale.x * massMultiplier;
+            forceMult = scale.x;
         }
+        
         
         public void SetHammerScale(Vector3 scale)
         {
    
             HammerRB.transform.localScale = scale;
+            HammerRB.mass = scale.x * massMultiplier;
         }
         
         public void SetJointMotor(float targetVel, float force)
@@ -30,7 +37,7 @@ namespace Features.Slime
             Joint.motor = new JointMotor
             {
                 targetVelocity = targetVel,
-                force = force
+                force = force * forceMult
             };
         }
 
