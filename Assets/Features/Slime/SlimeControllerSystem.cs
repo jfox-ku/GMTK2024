@@ -11,8 +11,11 @@ namespace Features.Slime
     {
         [HorizontalLine(2, EColor.Green)]
         public GameObject SlimePrefab;
-        public float MaxScale;
-        public float MinScale;
+
+        [Expandable]
+        public IntVariable SlimeMaxScale;
+        [Expandable]
+        public IntVariable SlimeMinScale;
 
         [HorizontalLine(2, EColor.Blue)]
         public float MaxMotorForce;
@@ -25,7 +28,8 @@ namespace Features.Slime
         public BoolVariable HammerGrow;
         public BoolVariable HammerShrink;
         public BoolVariable AddForce;
-        
+
+        public BoolVariable IsPaused;
         
         private SlimeMono _slimeMono;
         
@@ -40,6 +44,8 @@ namespace Features.Slime
         {
             while (true)
             {
+                if (IsPaused.Value) yield return null;
+                
                 if(SlimeGrow.Value)
                 {
                 
@@ -51,7 +57,8 @@ namespace Features.Slime
             
                 if(HammerGrow.Value)
                 {
-                    _slimeMono.transform.localScale += Vector3.one * Time.deltaTime;
+                    var clamped = Mathf.Clamp(_slimeMono.HammerScale.x, SlimeMinScale.Value, SlimeMaxScale.Value);
+                    _slimeMono.SetHammerScale(_slimeMono.HammerScale + Vector3.one * Time.deltaTime);
                 }
                 else if(HammerShrink.Value)
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using ScriptableObjectArchitecture;
 using UnityEngine;
 
 namespace Features.Slime
@@ -8,7 +9,7 @@ namespace Features.Slime
         public Rigidbody SlimeRB;
         public Rigidbody HammerRB;
         public HingeJoint Joint;
-
+        
         public Vector3 SlimeScale => SlimeRB.transform.localScale;
         public Vector3 HammerScale => HammerRB.transform.localScale;
 
