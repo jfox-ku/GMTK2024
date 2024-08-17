@@ -51,11 +51,11 @@ namespace Features.Slime
                 
                 if(SlimeGrow.Value)
                 {
-                
+                    _slimeMono.SetSlimeScale(_slimeMono.SlimeScale + Vector3.one * Time.deltaTime);
                 }
                 else if(SlimeShrink.Value)
                 {
-                    _slimeMono.SetSlimeScale(_slimeMono.transform.localScale - Vector3.one * Time.deltaTime);
+                    _slimeMono.SetSlimeScale(_slimeMono.SlimeScale - Vector3.one * Time.deltaTime);
                 }
             
                 if(HammerGrow.Value)
@@ -65,7 +65,9 @@ namespace Features.Slime
                 }
                 else if(HammerShrink.Value)
                 {
-                    _slimeMono.transform.localScale -= Vector3.one * Time.deltaTime;
+                    
+                    _slimeMono.SetHammerScale(_slimeMono.HammerScale - Vector3.one * Time.deltaTime);
+                    //_slimeMono.transform.localScale -= Vector3.one * Time.deltaTime;
                 }
             
                 if(AddForce.Value)
