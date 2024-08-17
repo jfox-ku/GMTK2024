@@ -20,6 +20,7 @@ namespace Features.Slime
         
         public void SetHammerScale(Vector3 scale)
         {
+   
             HammerRB.transform.localScale = scale;
         }
         
