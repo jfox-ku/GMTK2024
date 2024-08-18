@@ -3,6 +3,7 @@ using DefaultNamespace;
 using NaughtyAttributes;
 using ScriptableObjectArchitecture;
 using UnityEngine;
+using Cinemachine;
 
 namespace Features.Slime
 {
@@ -40,6 +41,7 @@ namespace Features.Slime
 
         public BoolVariable IsPaused;
         
+        private CinemachineVirtualCamera _cinemachineCamera;
         private SlimeMono _slimeMono;
 
         private Vector3 clampedValue;
@@ -57,6 +59,14 @@ namespace Features.Slime
         {
             _slimeMono = Instantiate(SlimePrefab).GetComponent<SlimeMono>();
             _slimeMono.SetJointMotor(0,0);
+            
+            _cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            if (_cinemachineCamera != null)
+            {
+                _cinemachineCamera.Follow = _slimeMono.transform;
+                _cinemachineCamera.LookAt = _slimeMono.transform;
+            }
+
             GameRoot.CoroutineRunner.StartCoroutine(SlimeControlRoutine());
         }
 
@@ -73,6 +83,7 @@ namespace Features.Slime
         {
             while (true)
             {
+                
                 if (IsPaused.Value) yield return null;
                 
                 if(SlimeGrow.Value)
