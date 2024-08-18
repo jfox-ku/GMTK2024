@@ -20,6 +20,8 @@ namespace Features.Slime
         public Vector3Variable HammerMaxScale;
         [Expandable]
         public Vector3Variable HammerMinScale;
+        [Expandable]
+        public FloatVariable gravityMultiplier;
 
         [HorizontalLine(2, EColor.Blue)]
         public float MaxMotorForce;
@@ -76,6 +78,7 @@ namespace Features.Slime
                 if(SlimeGrow.Value)
                 {
                     _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) + Vector3.one * Time.deltaTime);
+                    _slimeMono.SetSlimeMass(Mathf.Clamp(Mathf.Exp((float)_slimeMono.SlimeScale.x),(float)SlimeMinScale.Value.x,10));
                 }
                 else if(SlimeShrink.Value)
                 {
@@ -83,6 +86,7 @@ namespace Features.Slime
                     //var clamped = Mathf.Clamp(_slimeMono.SlimeScale.x, SlimeMinScale.Value, SlimeMaxScale.Value) * Vector3.one;
                     //_slimeMono.SetSlimeScale(_slimeMono.SlimeScale - Vector3.one * Time.deltaTime);
                     _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) - Vector3.one * Time.deltaTime);
+                    _slimeMono.SetSlimeMass(Mathf.Clamp((float)_slimeMono.SlimeScale.x,(float)SlimeMinScale.Value.x,(float)10));
                 }
             
                 if(HammerGrow.Value)
@@ -97,18 +101,33 @@ namespace Features.Slime
                     //_slimeMono.transform.localScale -= Vector3.one * Time.deltaTime;
                     _slimeMono.SetHammerScale(ClampVectorComponents(_slimeMono.HammerScale,HammerMinScale,HammerMaxScale) - Vector3.one * Time.deltaTime);
                 }
-            
+
+                if (_slimeMono.HammerRB.velocity.magnitude < 0.3f)
+                {
+                    _slimeMono.SetGravity(gravityMultiplier*0.1f);
+                }
+                else
+                {
+                    _slimeMono.SetGravity(gravityMultiplier*0.5f);
+                }
+
+                
                 if(AddForce.Value)
                 {
                     var hinge = _slimeMono.Joint;
                     var lerp = Mathf.Lerp(hinge.motor.force, MaxMotorForce, MotorForceLerpAmount);
                     _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
+                   
+                    
+                   
                 }
                 else
                 {
                     var hinge = _slimeMono.Joint;
                     var lerp = Mathf.Lerp(hinge.motor.force, 0, MotorForceLerpAmount);
                     _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
+                 
+                    
                 }
 
                 yield return null;
