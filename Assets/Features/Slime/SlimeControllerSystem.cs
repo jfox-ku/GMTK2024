@@ -108,7 +108,7 @@ namespace Features.Slime
                         _slimeMono.SlimeRB.velocity = MoveDirection.Value * Vector3.right * MoveSpeed.Value;
                         var transform = _slimeMono.SlimeRB.transform;
                         //var rotateLerp = Vector3.Lerp(transform.forward, _slimeMono.SlimeRB.velocity, RotateLerpAmount);
-                        transform.forward = _slimeMono.SlimeRB.velocity;
+                        //transform.forward = _slimeMono.SlimeRB.velocity;
                     }
                 }
 
@@ -122,10 +122,10 @@ namespace Features.Slime
                     IsGrounded.Value = false;
                 }
                 
-                if(!IsGrounded.Value == false)
-                {
-                    JumpKeyHoldDuration.Value = 0;
-                }
+                // if(!IsGrounded.Value == false)
+                // {
+                //     JumpKeyHoldDuration.Value = 0;
+                // }
                 
                 yield return null;
             }
