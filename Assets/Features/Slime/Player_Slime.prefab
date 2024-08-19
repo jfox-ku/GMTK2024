@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7599802222326690963}
   - component: {fileID: 3269378486647623729}
   - component: {fileID: 8638397728953147019}
+  - component: {fileID: 5022298659970314879}
   m_Layer: 0
   m_Name: Player_Slime
   m_TagString: Untagged
@@ -194,6 +195,19 @@ MonoBehaviour:
   IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
   speed: 5
   duration: 4
+--- !u!114 &5022298659970314879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940099429070855354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8999259a4674f628396f7e227d73837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: 2
 --- !u!1001 &8507111478521638941
 PrefabInstance:
   m_ObjectHideFlags: 0
