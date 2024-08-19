@@ -121,13 +121,33 @@ namespace Features.Slime
 
                 
                 Jump();
-                
 
+                StationaryCheck();
                 
                 yield return null;
             }
 
             yield return null;
+        }
+
+
+        private float stationaryTimer = 0;
+        private void StationaryCheck()
+        {
+            if (IsGrounded.Value == false && _slimeMono.SlimeRB.velocity.magnitude < 0.1f)
+            {
+                stationaryTimer += Time.deltaTime;
+            }
+            else
+            {
+                stationaryTimer = 0;
+            }
+
+            if (stationaryTimer > 2)
+            {
+                IsGrounded.Value = true;
+            }
+            
         }
 
         private void Jump()
@@ -138,7 +158,7 @@ namespace Features.Slime
             if(shouldJump == false) return;
             
             var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
-            //_slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * JumpKeyHoldDuration.Value, ForceMode.VelocityChange);
+            _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * Mathf.Clamp(JumpKeyHoldDuration.Value,MinHoldToJump,MaxHoldToJump), ForceMode.VelocityChange);
             JumpKey.Value = false;
             JumpKeyHoldDuration.Value = 0;
             IsGrounded.Value = false;
