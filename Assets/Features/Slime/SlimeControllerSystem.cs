@@ -122,10 +122,10 @@ namespace Features.Slime
                     IsGrounded.Value = false;
                 }
                 
-                // if(!IsGrounded.Value == false)
-                // {
-                //     JumpKeyHoldDuration.Value = 0;
-                // }
+                if(IsGrounded.Value == false)
+                {
+                     JumpKeyHoldDuration.Value = 0;
+                }
                 
                 yield return null;
             }

@@ -24,4 +24,5 @@ public class BlendShapeController : MonoBehaviour
     {
         SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeJumpIndex,value);
     }
+    
 }
