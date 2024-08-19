@@ -7,54 +7,32 @@ namespace Features.Slime
     public class SlimeMono : MonoBehaviour
     {
         public Rigidbody SlimeRB;
-        public Rigidbody HammerRB;
-        public HingeJoint Joint;
-        
         public Vector3 SlimeScale => SlimeRB.transform.localScale;
-        public Vector3 HammerScale => HammerRB.transform.localScale;
 
-        private int massMultiplier = 1;
-        private float forceMult;
-        
-        
+        public BoolVariable IsGrounded;
+
+        private void Start()
+        {
+            IsGrounded.Value = true;
+        }
+
         public void SetSlimeScale(Vector3 scale)
         {
             SlimeRB.transform.localScale = scale;
-            //SlimeRB.mass = scale.x * massMultiplier;
-            forceMult = scale.x;
         }
         public void SetSlimeMass(float mass)
         {
             SlimeRB.mass = mass;
         }
 
-        public void SetGravity(float gravityMult)
+        private void OnCollisionEnter(Collision collision)
         {
-            SlimeRB.AddForce(Physics.gravity * gravityMult * SlimeRB.mass);
-        }
-        
-        
-        public void SetHammerScale(Vector3 scale)
-        {
-   
-            HammerRB.transform.localScale = scale;
-            HammerRB.mass = scale.x * massMultiplier;
-        }
-        
-        public void SetHammerMass(float mass)
-        {
-            HammerRB.mass = mass;
-        }
-        
-        public void SetJointMotor(float targetVel, float force)
-        {
-            Joint.useMotor = true;
-            Joint.motor = new JointMotor
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                targetVelocity = targetVel,
-                force = force
-            };
+                Debug.Log("Slime is grounded");
+                IsGrounded.Value = true;
+            }
+            
         }
-
     }
 }

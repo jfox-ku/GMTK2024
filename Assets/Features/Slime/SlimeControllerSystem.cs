@@ -17,27 +17,29 @@ namespace Features.Slime
         public Vector3Variable SlimeMaxScale;
         [Expandable]
         public Vector3Variable SlimeMinScale;
-        [Expandable]
-        public Vector3Variable HammerMaxScale;
-        [Expandable]
-        public Vector3Variable HammerMinScale;
-        [Expandable]
-        public FloatVariable gravityMultiplier;
 
-        [HorizontalLine(2, EColor.Blue)]
-        public float MaxMotorForce;
-        public float TargetMotorVelocity;
-        public IntVariable MotorDirection;
-        private int MotorDirectionValue => (int)Mathf.Sign(MotorDirection.Value);
-        
-        public float MotorForceLerpAmount = 0.1f;
-        
         [HorizontalLine(2, EColor.Blue)]
         public BoolVariable SlimeGrow;
         public BoolVariable SlimeShrink;
-        public BoolVariable HammerGrow;
-        public BoolVariable HammerShrink;
-        public BoolVariable AddForce;
+        public IntVariable MoveDirection;
+        [Expandable]
+        public FloatVariable MoveSpeed;
+        public FloatVariable RotateLerpAmount;
+
+
+        [HorizontalLine(2, EColor.Blue)]
+        public float MaxHoldToJump;
+        public float MinHoldToJump;
+        public BoolVariable JumpKey;
+        [Expandable]
+        public FloatVariable JumpKeyHoldDuration;
+        [Expandable]
+        public FloatVariable JumpStrength;
+        public float BaseJumpStrength;
+        [Expandable]
+        public Vector3Variable JumpAngle;
+        public BoolVariable IsGrounded;
+
 
         public BoolVariable IsPaused;
         
@@ -52,15 +54,15 @@ namespace Features.Slime
         
         public void Init()
         {
-            GamePlayingEvent.AddListener(OnGamePlatingStateHandler);
+            JumpStrength.Value = BaseJumpStrength;
+            GamePlayingEvent.AddListener(OnGamePlayingStateHandler);
         }
 
-        private void OnGamePlatingStateHandler()
+        private void OnGamePlayingStateHandler()
         {
             _slimeMono = Instantiate(SlimePrefab).GetComponent<SlimeMono>();
-            _slimeMono.SetJointMotor(0,0);
-            
             _cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            
             if (_cinemachineCamera != null)
             {
                 _cinemachineCamera.Follow = _slimeMono.transform;
@@ -78,14 +80,15 @@ namespace Features.Slime
 
             return new Vector3(x, y, z);
         }
+        
+        private int _lastMoveDirection;
 
         private IEnumerator SlimeControlRoutine()
         {
             while (true)
             {
-                
                 if (IsPaused.Value) yield return null;
-                
+
                 if(SlimeGrow.Value)
                 {
                     _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) + Vector3.one * Time.deltaTime);
@@ -93,59 +96,44 @@ namespace Features.Slime
                 }
                 else if(SlimeShrink.Value)
                 {
-                    
-                    //var clamped = Mathf.Clamp(_slimeMono.SlimeScale.x, SlimeMinScale.Value, SlimeMaxScale.Value) * Vector3.one;
-                    //_slimeMono.SetSlimeScale(_slimeMono.SlimeScale - Vector3.one * Time.deltaTime);
                     _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) - Vector3.one * Time.deltaTime);
                     _slimeMono.SetSlimeMass(Mathf.Clamp((float)_slimeMono.SlimeScale.x,(float)SlimeMinScale.Value.x,(float)10));
                 }
-            
-                if(HammerGrow.Value)
-                {
-                    //_slimeMono.SetHammerScale(_slimeMono.HammerScale + Vector3.one * Time.deltaTime);
-                    _slimeMono.SetHammerScale(ClampVectorComponents(_slimeMono.HammerScale,HammerMinScale,HammerMaxScale) + Vector3.one * Time.deltaTime);
-                }
-                else if(HammerShrink.Value)
-                {
-                    
-                    //_slimeMono.SetHammerScale(_slimeMono.HammerScale - Vector3.one * Time.deltaTime);
-                    //_slimeMono.transform.localScale -= Vector3.one * Time.deltaTime;
-                    _slimeMono.SetHammerScale(ClampVectorComponents(_slimeMono.HammerScale,HammerMinScale,HammerMaxScale) - Vector3.one * Time.deltaTime);
-                }
-
-                if (_slimeMono.HammerRB.velocity.magnitude < 0.3f)
-                {
-                    _slimeMono.SetGravity(gravityMultiplier*0.1f);
-                }
-                else
-                {
-                    _slimeMono.SetGravity(gravityMultiplier*0.5f);
-                }
-
                 
-                if(AddForce.Value)
+                if (MoveDirection.Value != 0)
                 {
-                    var hinge = _slimeMono.Joint;
-                    var lerp = Mathf.Lerp(hinge.motor.force, MaxMotorForce, MotorForceLerpAmount);
-                    _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
-                   
-                    
-                   
-                }
-                else
-                {
-                    var hinge = _slimeMono.Joint;
-                    var lerp = Mathf.Lerp(hinge.motor.force, 0, MotorForceLerpAmount);
-                    _slimeMono.SetJointMotor(TargetMotorVelocity * MotorDirectionValue,lerp);
-                 
-                    
+                    _lastMoveDirection = MoveDirection.Value;
+                    if (!JumpKey.Value)
+                    {
+                        _slimeMono.SlimeRB.velocity = MoveDirection.Value * Vector3.right * MoveSpeed.Value;
+                        var transform = _slimeMono.SlimeRB.transform;
+                        //var rotateLerp = Vector3.Lerp(transform.forward, _slimeMono.SlimeRB.velocity, RotateLerpAmount);
+                        transform.forward = _slimeMono.SlimeRB.velocity;
+                    }
                 }
 
+
+                var shouldJump = (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump && JumpKey.Value == false) || JumpKeyHoldDuration.Value > MaxHoldToJump;
+                if(IsGrounded.Value && shouldJump)
+                {
+                    var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
+                    _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value, ForceMode.VelocityChange);
+                    JumpKeyHoldDuration.Value = 0;
+                    IsGrounded.Value = false;
+                }
+                
+                if(!IsGrounded.Value == false)
+                {
+                    JumpKeyHoldDuration.Value = 0;
+                }
+                
                 yield return null;
             }
 
             yield return null;
         }
+        
+        
 
         public void CleanUp()
         {

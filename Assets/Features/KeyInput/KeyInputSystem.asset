@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e8b3b97a4c4abb8d98b033c5fd4743, type: 3}
   m_Name: KeyInputSystem
   m_EditorClassIdentifier: 
-  SlimeGrowKey: 113
-  SlimeShrinkKey: 119
-  HammerGrowKey: 101
-  HammerShrinkKey: 114
-  AddForceKey: 32
-  SwitchMotorDirection: 115
+  SlimeGrowKey: 119
+  SlimeShrinkKey: 115
+  Left: 97
+  Right: 100
+  Up: 32
   SlimeGrow: {fileID: 11400000, guid: ff04e88ece8a2344bb43ee63a5d067c4, type: 2}
   SlimeShrink: {fileID: 11400000, guid: 2403154c34301544bb4c1e5aad271054, type: 2}
-  HammerGrow: {fileID: 11400000, guid: 0eb7dd7b5c7b5a048bb58e7abd44437f, type: 2}
-  HammerShrink: {fileID: 11400000, guid: 1e8f58886b83f1f42a02ec7263826603, type: 2}
-  AddForce: {fileID: 11400000, guid: 21e3f9c46ddb69740a88d36c6482f814, type: 2}
-  MotorDirection: {fileID: 11400000, guid: 10fcdd4369d454ce786c1598bfb3c607, type: 2}
+  MoveDirection: {fileID: 11400000, guid: b79ba048d8963c74faec68ab680a5430, type: 2}
+  JumpKey: {fileID: 11400000, guid: 16a83069d72f70b4fb539a183d9a53fd, type: 2}
+  JumpKeyHoldDuration: {fileID: 11400000, guid: cba0a0d1fefe964409033ef43c36787e, type: 2}
