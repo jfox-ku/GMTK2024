@@ -138,7 +138,7 @@ namespace Features.Slime
             if(shouldJump == false) return;
             
             var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
-            _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * JumpKeyHoldDuration.Value, ForceMode.VelocityChange);
+            //_slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * JumpKeyHoldDuration.Value, ForceMode.VelocityChange);
             JumpKey.Value = false;
             JumpKeyHoldDuration.Value = 0;
             IsGrounded.Value = false;
