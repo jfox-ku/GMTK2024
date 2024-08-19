@@ -8,6 +8,7 @@ public class BlendShapeController : MonoBehaviour
     [SerializeField] protected SkinnedMeshRenderer SkinnedMeshRenderer;
     public int BlendShapeIndex;
     public int BlendShapeMoveIndex;
+    public int BlendShapeJumpIndex;
 
     public virtual void SetBlendShapeValue(float value)
     {
@@ -17,5 +18,10 @@ public class BlendShapeController : MonoBehaviour
     public virtual void SetBlendShapeDirection(float value)
     {
         SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeMoveIndex,value);
+    }
+    
+    public virtual void SetBlendShapeJumpState(float value)
+    {
+        SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeJumpIndex,value);
     }
 }
