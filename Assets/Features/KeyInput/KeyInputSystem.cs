@@ -36,12 +36,12 @@ namespace Features.KeyInput
         {
             if (Input.GetKey(Up))
             {
+                if(!JumpKey.Value) JumpKeyHoldDuration.Value = 0;
                 JumpKey.Value = true;
                 JumpKeyHoldDuration.Value += Time.deltaTime;
             }
             else
             {
-                JumpKeyHoldDuration.Value = 0;
                 JumpKey.Value = false;
             }
             

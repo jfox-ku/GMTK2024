@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SlimeControllerSystem
   m_EditorClassIdentifier: 
   SlimePrefab: {fileID: 7940099429070855354, guid: 32b7231f4ee783440b3ad6b903800946, type: 3}
+  SpawnPosition: {fileID: 11400000, guid: 84b6d254773fcd749af0a122cb771de5, type: 2}
   SlimeMaxScale: {fileID: 11400000, guid: 853fb5bd0c3ad41398f69e1f9a3a646a, type: 2}
   SlimeMinScale: {fileID: 11400000, guid: 1522b676dcc494cbab0292bf18c679df, type: 2}
   SlimeGrow: {fileID: 11400000, guid: ff04e88ece8a2344bb43ee63a5d067c4, type: 2}
@@ -25,7 +26,7 @@ MonoBehaviour:
   JumpKey: {fileID: 11400000, guid: 16a83069d72f70b4fb539a183d9a53fd, type: 2}
   JumpKeyHoldDuration: {fileID: 11400000, guid: cba0a0d1fefe964409033ef43c36787e, type: 2}
   JumpStrength: {fileID: 11400000, guid: 61c53969641cb914a92d382e2676712c, type: 2}
-  BaseJumpStrength: 5
+  BaseJumpStrength: 10
   JumpAngle: {fileID: 11400000, guid: f70afc13a18b7cc4aa66aded263bb30e, type: 2}
   IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
   IsPaused: {fileID: 11400000, guid: 0ad16de8a4c484b4c8d4c27e32a719b2, type: 2}

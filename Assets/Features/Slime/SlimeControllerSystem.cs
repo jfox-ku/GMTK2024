@@ -12,6 +12,7 @@ namespace Features.Slime
     {
         [HorizontalLine(2, EColor.Green)]
         public GameObject SlimePrefab;
+        public Vector3Variable SpawnPosition;
 
         [Expandable]
         public Vector3Variable SlimeMaxScale;
@@ -61,6 +62,7 @@ namespace Features.Slime
         private void OnGamePlayingStateHandler()
         {
             _slimeMono = Instantiate(SlimePrefab).GetComponent<SlimeMono>();
+            _slimeMono.transform.position = SpawnPosition.Value;
             _cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
             
             if (_cinemachineCamera != null)
@@ -103,37 +105,45 @@ namespace Features.Slime
                 if (MoveDirection.Value != 0)
                 {
                     _lastMoveDirection = MoveDirection.Value;
-                    if (!JumpKey.Value)
-                    {
-                        _slimeMono.SlimeRB.velocity = MoveDirection.Value * Vector3.right * MoveSpeed.Value;
-                        var transform = _slimeMono.SlimeRB.transform;
-                        //var rotateLerp = Vector3.Lerp(transform.forward, _slimeMono.SlimeRB.velocity, RotateLerpAmount);
-                        //transform.forward = _slimeMono.SlimeRB.velocity;
-                    }
-                }
-
-
-                var shouldJump = (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump && JumpKey.Value == false) || JumpKeyHoldDuration.Value > MaxHoldToJump;
-                if(IsGrounded.Value && shouldJump)
-                {
-                    var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
-                    _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value, ForceMode.VelocityChange);
-                    JumpKeyHoldDuration.Value = 0;
-                    IsGrounded.Value = false;
                 }
                 
+
                 if(IsGrounded.Value == false)
                 {
                      JumpKeyHoldDuration.Value = 0;
                 }
+
+                if (!JumpKey.Value && IsGrounded.Value)
+                {
+                    var velocityLerp = Vector3.Lerp(_slimeMono.SlimeRB.velocity, MoveDirection.Value * Vector3.right * MoveSpeed.Value, 0.25f);
+                    _slimeMono.SlimeRB.velocity = velocityLerp;
+                }
+
+                
+                Jump();
+                
+
                 
                 yield return null;
             }
 
             yield return null;
         }
-        
-        
+
+        private void Jump()
+        {
+            if(IsGrounded.Value == false || JumpKey.Value) return;
+            var shouldJump = (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump ) 
+                             || JumpKeyHoldDuration.Value > MaxHoldToJump;
+            if(shouldJump == false) return;
+            
+            var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
+            _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * JumpKeyHoldDuration.Value, ForceMode.VelocityChange);
+            JumpKey.Value = false;
+            JumpKeyHoldDuration.Value = 0;
+            IsGrounded.Value = false;
+        }
+
 
         public void CleanUp()
         {
