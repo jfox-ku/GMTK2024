@@ -1032,6 +1032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700425558}
   - component: {fileID: 700425557}
+  - component: {fileID: 700425559}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -1094,6 +1095,22 @@ Transform:
   - {fileID: 1372476427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700425559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700425556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa860a8c35cc4c4f9b540fb9445d7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseOffset: {x: 0, y: 2.8, z: -4}
+  OffsetPerSize: {x: 0, y: 0.2, z: -1}
+  SizeEater: {fileID: 11400000, guid: 656f4cd852ed94ce786feb637c20fb66, type: 2}
+  VirtualCamera: {fileID: 700425557}
 --- !u!4 &860985068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8835056448017731419, guid: 7a16c3e3662f7ca48a04ddfe3bbb4cee, type: 3}
@@ -1906,6 +1923,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4635749209210151834, guid: 7a16c3e3662f7ca48a04ddfe3bbb4cee, type: 3}
+      propertyPath: SizeEater
+      value: 
+      objectReference: {fileID: 11400000, guid: 656f4cd852ed94ce786feb637c20fb66, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

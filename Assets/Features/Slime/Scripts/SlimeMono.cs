@@ -1,4 +1,5 @@
 ﻿using System;
+using NaughtyAttributes;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using Color = System.Drawing.Color;
@@ -12,10 +13,17 @@ namespace Features.Slime
         public Vector3 SlimeScale => SlimeRB.transform.localScale;
 
         public BoolVariable IsGrounded;
-
+        public FloatVariable SizeEater;
+        
         private void Start()
         {
             IsGrounded.Value = true;
+        }
+        
+        [Button()]
+        public void UpdateFromSize()
+        {
+            SetSlimeScale(SizeEater.Value * Vector3.one);
         }
 
         public void SetModelDirection(int dir, float lerp = 1f)
@@ -36,8 +44,6 @@ namespace Features.Slime
 
         private void OnCollisionEnter(Collision collision)
         {
-            
-            
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 var contact = collision.GetContact(0);

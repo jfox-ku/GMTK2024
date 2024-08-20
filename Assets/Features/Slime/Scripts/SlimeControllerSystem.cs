@@ -72,9 +72,9 @@ namespace Features.Slime
 
         void OnSizeChange(float size)
         {
-            var edge = (float)Math.Cbrt(size);
             if (_slimeMono == null || _slimeMono.SlimeRB == null) return;
-            _slimeMono.SetSlimeScale(new Vector3(edge,edge,edge));
+            var edge = size; //(float)Math.Cbrt(size);
+            _slimeMono.SetSlimeScale(edge * Vector3.one);
         }
 
         private IEnumerator SlimeControlRoutine()
@@ -103,13 +103,13 @@ namespace Features.Slime
                 if (!JumpKey.Value && IsGrounded.Value)
                 {
                     var vel = _slimeMono.SlimeRB.velocity;
-                    vel[0] = MoveDirection.Value * MoveSpeed.Value;
+                    vel[0] = MoveDirection.Value * MoveSpeed.Value * Mathf.Sqrt(EaterSize.Value);
                     _slimeMono.SlimeRB.velocity = vel;
                 }
                 
                 Jump();
 
-                //StationaryCheck();
+                StationaryCheck();
                 
                 yield return null;
             }
@@ -152,7 +152,7 @@ namespace Features.Slime
             if(shouldJump == false) return;
             
             var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
-            _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * Mathf.Clamp(JumpKeyHoldDuration.Value,MinHoldToJump,MaxHoldToJump), ForceMode.VelocityChange);
+            _slimeMono.SlimeRB.AddForce(jumpDir * JumpStrength.Value * Mathf.Sqrt(EaterSize) * Mathf.Clamp(JumpKeyHoldDuration.Value,MinHoldToJump,MaxHoldToJump), ForceMode.VelocityChange);
             JumpKey.Value = false;
             JumpKeyHoldDuration.Value = 0;
             IsGrounded.Value = false;
