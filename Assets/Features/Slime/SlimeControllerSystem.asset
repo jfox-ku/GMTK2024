@@ -29,5 +29,6 @@ MonoBehaviour:
   BaseJumpStrength: 10
   JumpAngle: {fileID: 11400000, guid: f70afc13a18b7cc4aa66aded263bb30e, type: 2}
   IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
+  EaterSize: {fileID: 11400000, guid: 656f4cd852ed94ce786feb637c20fb66, type: 2}
   IsPaused: {fileID: 11400000, guid: 0ad16de8a4c484b4c8d4c27e32a719b2, type: 2}
   GamePlayingEvent: {fileID: 11400000, guid: 75c7e2659e9d55a42b99c2354725bdb3, type: 2}

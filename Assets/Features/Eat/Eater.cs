@@ -23,7 +23,7 @@ namespace Features.Eat
         {
             if (edible.Size <= Size.Value)
             {
-                Size.Value += edible.Size * 0.5f;
+                Size.Value += edible.Size * 0.1f;
                 edible.EatenBy(this);
             }  
         }

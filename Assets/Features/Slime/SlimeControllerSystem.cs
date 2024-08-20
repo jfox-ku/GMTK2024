@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Drawing;
 using DefaultNamespace;
 using NaughtyAttributes;
 using ScriptableObjectArchitecture;
@@ -41,7 +43,7 @@ namespace Features.Slime
         public Vector3Variable JumpAngle;
         public BoolVariable IsGrounded;
 
-        public FloatVariable size;
+        public FloatVariable EaterSize;
         public BoolVariable IsPaused;
         
         private CinemachineVirtualCamera _cinemachineCamera;
@@ -55,6 +57,7 @@ namespace Features.Slime
         
         public void Init()
         {
+            EaterSize.AddListener(OnSizeChange);
             JumpStrength.Value = BaseJumpStrength;
             GamePlayingEvent.AddListener(OnGamePlayingStateHandler);
         }
@@ -87,32 +90,23 @@ namespace Features.Slime
         private int _lastMoveDirection;
         private Vector3 _targetVelocity;
 
+        void OnSizeChange(float size)
+        {
+            var edge = (float)Math.Cbrt(size);
+            _slimeMono.SetSlimeScale(new Vector3(edge,edge,edge));
+        }
+
         private IEnumerator SlimeControlRoutine()
         {
             while (true)
             {
                 if (IsPaused.Value) yield return null;
                 
-                _slimeMono.SetSlimeScale(new Vector3(size.Value,size.Value,size.Value));
-
-                if(SlimeGrow.Value)
-                {
-                    
-                    _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) + Vector3.one * Time.deltaTime);
-                    _slimeMono.SetSlimeMass(Mathf.Clamp(Mathf.Exp((float)_slimeMono.SlimeScale.x),(float)SlimeMinScale.Value.x,10));
-                }
-                else if(SlimeShrink.Value)
-                {
-                    _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) - Vector3.one * Time.deltaTime);
-                    _slimeMono.SetSlimeMass(Mathf.Clamp((float)_slimeMono.SlimeScale.x,(float)SlimeMinScale.Value.x,(float)10));
-                }
-                
                 if (MoveDirection.Value != 0)
                 {
                     _lastMoveDirection = MoveDirection.Value;
                 }
                 
-
                 if(IsGrounded.Value == false)
                 {
                     JumpKeyHoldDuration.Value = 0;
@@ -175,7 +169,7 @@ namespace Features.Slime
 
         public void CleanUp()
         {
-            size.Value = 1f;
+            EaterSize.Value = 1f;
         }
     }
 }
