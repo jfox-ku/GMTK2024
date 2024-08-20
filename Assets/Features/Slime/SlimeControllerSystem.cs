@@ -41,7 +41,7 @@ namespace Features.Slime
         public Vector3Variable JumpAngle;
         public BoolVariable IsGrounded;
 
-
+        public FloatVariable size;
         public BoolVariable IsPaused;
         
         private CinemachineVirtualCamera _cinemachineCamera;
@@ -58,6 +58,7 @@ namespace Features.Slime
             JumpStrength.Value = BaseJumpStrength;
             GamePlayingEvent.AddListener(OnGamePlayingStateHandler);
         }
+        
 
         private void OnGamePlayingStateHandler()
         {
@@ -90,9 +91,12 @@ namespace Features.Slime
             while (true)
             {
                 if (IsPaused.Value) yield return null;
+                
+                _slimeMono.SetSlimeScale(new Vector3(size.Value,size.Value,size.Value));
 
                 if(SlimeGrow.Value)
                 {
+                    
                     _slimeMono.SetSlimeScale(ClampVectorComponents(_slimeMono.SlimeScale,SlimeMinScale,SlimeMaxScale) + Vector3.one * Time.deltaTime);
                     _slimeMono.SetSlimeMass(Mathf.Clamp(Mathf.Exp((float)_slimeMono.SlimeScale.x),(float)SlimeMinScale.Value.x,10));
                 }
@@ -167,7 +171,7 @@ namespace Features.Slime
 
         public void CleanUp()
         {
-            
+            size.Value = 1f;
         }
     }
 }

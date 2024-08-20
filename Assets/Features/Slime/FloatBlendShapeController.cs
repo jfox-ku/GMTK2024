@@ -27,11 +27,6 @@ namespace Features.Slime
             {
                 SetIdleBlendShapeState(15,20f);
             }
-            else
-            {
-                elapsedTime = 0;
-                SetBlendShapeJumpState(FloatVariableJump.Value);
-            }
         }
 
         public override void SetIdleBlendShapeState(int index,float value)
