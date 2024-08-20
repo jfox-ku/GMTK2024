@@ -6,6 +6,7 @@ namespace Features.Eat
 {
     public class Eater : MonoBehaviour
     {
+        public static event Action OnEat;
         public FloatVariable Size;
         public Vector3 Center => transform.position;
         private void OnCollisionEnter(Collision collision)
@@ -25,6 +26,7 @@ namespace Features.Eat
             {
                 Size.Value += edible.Size * 0.1f;
                 edible.EatenBy(this);
+                OnEat?.Invoke();
             }  
         }
     }

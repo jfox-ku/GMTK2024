@@ -114,9 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkinnedMeshRenderer: {fileID: 4953600385701387716}
-  BlendShapeIndex: 0
-  BlendShapeMoveIndex: 0
-  BlendShapeJumpIndex: 0
 --- !u!114 &8638397728953147019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,60 +127,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkinnedMeshRenderer: {fileID: 4953600385701387716}
-  BlendShapeIndex: 10
-  BlendShapeMoveIndex: 19
-  BlendShapeJumpIndex: 8
-  FloatVariable: {fileID: 11400000, guid: cba0a0d1fefe964409033ef43c36787e, type: 2}
-  BlendShapeCurve:
+  MoveDirection: {fileID: 11400000, guid: b79ba048d8963c74faec68ab680a5430, type: 2}
+  TargetRB: {fileID: 7599802222326690963}
+  IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
+  JumpKeyHoldDuration: {fileID: 11400000, guid: cba0a0d1fefe964409033ef43c36787e, type: 2}
+  JumpDurationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 172.18654
+      outSlope: 172.18654
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.11678832
+    - serializedVersion: 3
+      time: 2
+      value: 100
+      inSlope: 49.5
+      outSlope: 49.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  AirTimeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 2.213158
-      value: 42.80757
-      inSlope: 29.239552
-      outSlope: 29.239552
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 5
-      value: 100
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  BlendShapeCurve2:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0119895935
-      value: 1.1460409
-      inSlope: -0.14781314
-      outSlope: -0.14781314
+      inSlope: 100
+      outSlope: 100
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: -0.14781314
-      outSlope: -0.14781314
+      value: 100
+      inSlope: 100
+      outSlope: 100
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -191,11 +179,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  IntVariableMoveDirection: {fileID: 11400000, guid: b79ba048d8963c74faec68ab680a5430, type: 2}
-  FloatVariableJump: {fileID: 11400000, guid: 1a0ffdc890b71432fbab4b3cdd678805, type: 2}
-  IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
-  speed: 5
-  duration: 4
 --- !u!114 &5022298659970314879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +261,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[4]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[5]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[6]
       value: 0
       objectReference: {fileID: 0}
@@ -286,7 +289,35 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[8]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[9]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[10]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[11]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[12]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[13]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[15]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[17]
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652962040350649817, guid: 702afa24b8116d44380a89f2a415d911, type: 3}
