@@ -7,13 +7,7 @@ namespace Features.Eat
     public class Edible : MonoBehaviour
     {
         public float Size;
-        private Vector3 _baseScale;
-
-        private void Start()
-        {
-            _baseScale = transform.localScale;
-        }
-
+        
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(transform.position, Size);
