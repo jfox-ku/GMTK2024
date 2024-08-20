@@ -15,7 +15,7 @@ public class BlendShapeController : MonoBehaviour
         SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeIndex, value);
     }
 
-    public virtual void SetBlendShapeDirection(float value)
+    public virtual void SetBlendShapeDirection(int value)
     {
         SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeMoveIndex,value);
     }
@@ -23,6 +23,11 @@ public class BlendShapeController : MonoBehaviour
     public virtual void SetBlendShapeJumpState(float value)
     {
         SkinnedMeshRenderer.SetBlendShapeWeight(BlendShapeJumpIndex,value);
+    }
+    
+    public virtual void SetIdleBlendShapeState(int index,float value)
+    {
+        SkinnedMeshRenderer.SetBlendShapeWeight(index,value);
     }
     
 }

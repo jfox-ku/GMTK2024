@@ -190,7 +190,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  FloatVariableMoveSpeed: {fileID: 11400000, guid: fea4ea0ff06136a429a704c2d6b4a8d4, type: 2}
+  IntVariableMoveDirection: {fileID: 11400000, guid: b79ba048d8963c74faec68ab680a5430, type: 2}
   FloatVariableJump: {fileID: 11400000, guid: 1a0ffdc890b71432fbab4b3cdd678805, type: 2}
   IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
   speed: 5
