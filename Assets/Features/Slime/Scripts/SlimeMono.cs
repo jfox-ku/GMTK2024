@@ -7,6 +7,7 @@ namespace Features.Slime
     public class SlimeMono : MonoBehaviour
     {
         public Rigidbody SlimeRB;
+        public Transform Model;
         public Vector3 SlimeScale => SlimeRB.transform.localScale;
 
         public BoolVariable IsGrounded;
@@ -14,6 +15,13 @@ namespace Features.Slime
         private void Start()
         {
             IsGrounded.Value = true;
+        }
+
+        public void SetModelDirection(int dir, float lerp = 1f)
+        {
+            var targetDir = dir == 0 ? 180f : dir >= 1 ? 140f : 220f;
+            var lerpedDir = Mathf.Lerp(Model.transform.rotation.eulerAngles.y, targetDir, lerp);
+            Model.transform.rotation = Quaternion.Euler(0f,lerpedDir,0f);
         }
 
         public void SetSlimeScale(Vector3 scale)

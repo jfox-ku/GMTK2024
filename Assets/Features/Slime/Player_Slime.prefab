@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlimeRB: {fileID: 7599802222326690963}
+  Model: {fileID: 8180205622576502774}
   IsGrounded: {fileID: 11400000, guid: 03e01d3e331024b48b0b6b3c438d9bf6, type: 2}
 --- !u!135 &5230375842720051670
 SphereCollider:
@@ -97,9 +98,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &3269378486647623729
 MonoBehaviour:
   m_ObjectHideFlags: 0

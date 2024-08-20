@@ -6,6 +6,7 @@ using NaughtyAttributes;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using Cinemachine;
+using Color = UnityEngine.Color;
 
 namespace Features.Slime
 {
@@ -15,21 +16,11 @@ namespace Features.Slime
         [HorizontalLine(2, EColor.Green)]
         public GameObject SlimePrefab;
         public Vector3Variable SpawnPosition;
-
-        [Expandable]
-        public Vector3Variable SlimeMaxScale;
-        [Expandable]
-        public Vector3Variable SlimeMinScale;
-
-        [HorizontalLine(2, EColor.Blue)]
-        public BoolVariable SlimeGrow;
-        public BoolVariable SlimeShrink;
+        
         public IntVariable MoveDirection;
         [Expandable]
         public FloatVariable MoveSpeed;
-        public FloatVariable RotateLerpAmount;
-
-
+        
         [HorizontalLine(2, EColor.Blue)]
         public float MaxHoldToJump;
         public float MinHoldToJump;
@@ -46,27 +37,25 @@ namespace Features.Slime
         public FloatVariable EaterSize;
         public BoolVariable IsPaused;
         
-        private CinemachineVirtualCamera _cinemachineCamera;
-        private SlimeMono _slimeMono;
-
-        private Vector3 clampedValue;
-
         [HorizontalLine(2, EColor.Blue)]
         public GameEvent GamePlayingEvent;
         
+        private CinemachineVirtualCamera _cinemachineCamera;
+        private SlimeMono _slimeMono;
+        private int _lastMoveDirection;
+        private Vector3 _targetVelocity;
         
         public void Init()
         {
-            EaterSize.AddListener(OnSizeChange);
             JumpStrength.Value = BaseJumpStrength;
             GamePlayingEvent.AddListener(OnGamePlayingStateHandler);
+            EaterSize.AddListener(OnSizeChange);
         }
         
 
         private void OnGamePlayingStateHandler()
         {
-            _slimeMono = Instantiate(SlimePrefab).GetComponent<SlimeMono>();
-            _slimeMono.transform.position = SpawnPosition.Value;
+            _slimeMono = FindFirstObjectByType<SlimeMono>();
             _cinemachineCamera = FindObjectOfType<CinemachineVirtualCamera>();
             
             if (_cinemachineCamera != null)
@@ -75,24 +64,16 @@ namespace Features.Slime
                 _cinemachineCamera.LookAt = _slimeMono.transform;
             }
 
+            GameRoot.CoroutineRunner.StopCoroutine(SlimeControlRoutine());
             GameRoot.CoroutineRunner.StartCoroutine(SlimeControlRoutine());
         }
-
-        Vector3 ClampVectorComponents(Vector3 vector, Vector3 minVector, Vector3 maxVector)
-        {
-            float x = Mathf.Clamp(vector.x, minVector.x, maxVector.x);
-            float y = Mathf.Clamp(vector.y, minVector.y, maxVector.y);
-            float z = Mathf.Clamp(vector.z, minVector.z, maxVector.z);
-
-            return new Vector3(x, y, z);
-        }
         
-        private int _lastMoveDirection;
-        private Vector3 _targetVelocity;
+       
 
         void OnSizeChange(float size)
         {
             var edge = (float)Math.Cbrt(size);
+            if (_slimeMono == null || _slimeMono.SlimeRB == null) return;
             _slimeMono.SetSlimeScale(new Vector3(edge,edge,edge));
         }
 
@@ -100,12 +81,19 @@ namespace Features.Slime
         {
             while (true)
             {
+                if (_slimeMono == null)
+                {
+                    _slimeMono = FindFirstObjectByType<SlimeMono>();
+                    yield return null;
+                }
                 if (IsPaused.Value) yield return null;
                 
                 if (MoveDirection.Value != 0)
                 {
                     _lastMoveDirection = MoveDirection.Value;
                 }
+                
+                _slimeMono.SetModelDirection(MoveDirection.Value,0.2f);
                 
                 if(IsGrounded.Value == false)
                 {
@@ -152,6 +140,11 @@ namespace Features.Slime
         private void Jump()
         {
             if(IsGrounded.Value == false) return;
+            
+            var jumpDirDebug = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
+            Debug.DrawRay(_slimeMono.transform.position, jumpDirDebug * 2, Color.red);
+            
+            
             var shouldJump = 
                 (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump && !JumpKey.Value) || 
                 (JumpKeyHoldDuration.Value > MaxHoldToJump && JumpKey.Value);
