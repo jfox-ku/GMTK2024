@@ -1,6 +1,7 @@
 ﻿using System;
 using ScriptableObjectArchitecture;
 using UnityEngine;
+using Color = System.Drawing.Color;
 
 namespace Features.Slime
 {
@@ -35,14 +36,29 @@ namespace Features.Slime
 
         private void OnCollisionEnter(Collision collision)
         {
+            
+            
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                if(collision.GetContact(0).point.y > SlimeRB.transform.position.y)
+                var contact = collision.GetContact(0);
+                if (contact.thisCollider.CompareTag("SlimeSideCollider"))
+                {
                     return;
+                }
+                
                 Debug.Log("Slime is grounded");
                 IsGrounded.Value = true;
             }
             
+        }
+
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = UnityEngine.Color.red;
+            var left = transform.position + Vector3.left * 2000f;
+            var right = transform.position + Vector3.right * 2000f;
+            Gizmos.DrawLine(left, right);
         }
     }
 }

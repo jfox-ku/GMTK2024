@@ -10,7 +10,7 @@ namespace Features.Eat
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireCube(transform.position, Vector3.one * Size);
+            Gizmos.DrawWireSphere(transform.position, Size);
         }
 
         public void EatenBy(Eater eater)
