@@ -29,6 +29,8 @@ namespace Features.Slime
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
+                if(collision.GetContact(0).point.y > SlimeRB.transform.position.y)
+                    return;
                 Debug.Log("Slime is grounded");
                 IsGrounded.Value = true;
             }

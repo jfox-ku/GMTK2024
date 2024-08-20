@@ -21,10 +21,11 @@ namespace Features.Eat
                 c.enabled = false;
             }
 
-            transform.DOMove(eater.Center, 0.5f).OnComplete(() =>
-            {
-                Destroy(gameObject);
-            });
+            var eatSeq = DOTween.Sequence();
+            eatSeq.Append(transform.DOMove(eater.Center, 0.5f));
+            eatSeq.Join(transform.DOScale(Vector3.zero, 0.5f));
+            eatSeq.OnComplete(()=>Destroy(gameObject));
+
         }
     }
 }

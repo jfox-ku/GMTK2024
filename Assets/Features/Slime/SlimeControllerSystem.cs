@@ -85,6 +85,7 @@ namespace Features.Slime
         }
         
         private int _lastMoveDirection;
+        private Vector3 _targetVelocity;
 
         private IEnumerator SlimeControlRoutine()
         {
@@ -114,19 +115,19 @@ namespace Features.Slime
 
                 if(IsGrounded.Value == false)
                 {
-                     JumpKeyHoldDuration.Value = 0;
+                    JumpKeyHoldDuration.Value = 0;
                 }
-
+                
                 if (!JumpKey.Value && IsGrounded.Value)
                 {
-                    var velocityLerp = Vector3.Lerp(_slimeMono.SlimeRB.velocity, MoveDirection.Value * Vector3.right * MoveSpeed.Value, 0.25f);
-                    _slimeMono.SlimeRB.velocity = velocityLerp;
+                    var vel = _slimeMono.SlimeRB.velocity;
+                    vel[0] = MoveDirection.Value * MoveSpeed.Value;
+                    _slimeMono.SlimeRB.velocity = vel;
                 }
-
                 
                 Jump();
 
-                StationaryCheck();
+                //StationaryCheck();
                 
                 yield return null;
             }
@@ -156,9 +157,11 @@ namespace Features.Slime
 
         private void Jump()
         {
-            if(IsGrounded.Value == false || JumpKey.Value) return;
-            var shouldJump = (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump ) 
-                             || JumpKeyHoldDuration.Value > MaxHoldToJump;
+            if(IsGrounded.Value == false) return;
+            var shouldJump = 
+                (JumpKeyHoldDuration.Value > MinHoldToJump && JumpKeyHoldDuration.Value < MaxHoldToJump && !JumpKey.Value) || 
+                (JumpKeyHoldDuration.Value > MaxHoldToJump && JumpKey.Value);
+            
             if(shouldJump == false) return;
             
             var jumpDir = new Vector3(JumpAngle.Value.x * _lastMoveDirection, JumpAngle.Value.y, JumpAngle.Value.z).normalized;
@@ -166,6 +169,7 @@ namespace Features.Slime
             JumpKey.Value = false;
             JumpKeyHoldDuration.Value = 0;
             IsGrounded.Value = false;
+            stationaryTimer = 0;
         }
 
 

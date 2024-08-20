@@ -11,6 +11,8 @@ namespace Features.Eat
         private void OnCollisionEnter(Collision collision)
         {
             var edible = collision.gameObject.GetComponent<Edible>();
+            if (edible == null)
+                edible = collision.gameObject.GetComponentInParent<Edible>();
             if (edible != null)
             {
                 TryEat(edible);
