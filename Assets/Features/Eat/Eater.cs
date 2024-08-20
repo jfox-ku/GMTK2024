@@ -24,7 +24,7 @@ namespace Features.Eat
         {
             if (edible.Size <= Size.Value)
             {
-                Size.Value += edible.Size * 0.1f;
+                Size.Value += edible.Size * 0.25f;
                 edible.EatenBy(this);
                 OnEat?.Invoke();
             }  

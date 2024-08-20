@@ -1108,7 +1108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseOffset: {x: 0, y: 2.8, z: -4}
-  OffsetPerSize: {x: 0, y: 0.2, z: -1}
+  OffsetPerSize: {x: 0, y: 0.2, z: -2}
   SizeEater: {fileID: 11400000, guid: 656f4cd852ed94ce786feb637c20fb66, type: 2}
   VirtualCamera: {fileID: 700425557}
 --- !u!4 &860985068 stripped
@@ -1258,10 +1258,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 437224700423737547, guid: 6063bb789530b467c9d3e00cb0605be9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4360874525612763923, guid: 6063bb789530b467c9d3e00cb0605be9, type: 3}
       propertyPath: m_Name
       value: Level_0 (1)

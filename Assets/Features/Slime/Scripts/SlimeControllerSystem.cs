@@ -79,6 +79,8 @@ namespace Features.Slime
 
         private IEnumerator SlimeControlRoutine()
         {
+            _slimeMono.SlimeRB.useGravity = true;
+            
             while (true)
             {
                 if (_slimeMono == null)
