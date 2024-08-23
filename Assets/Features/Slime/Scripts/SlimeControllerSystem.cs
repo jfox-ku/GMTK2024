@@ -108,6 +108,13 @@ namespace Features.Slime
                     vel[0] = MoveDirection.Value * MoveSpeed.Value * Mathf.Sqrt(EaterSize.Value);
                     _slimeMono.SlimeRB.velocity = vel;
                 }
+
+                // if (!IsGrounded.Value)
+                // {
+                //     var vel = _slimeMono.SlimeRB.velocity;
+                //     vel[1] -= Mathf.Abs(vel[1]) * 0.01f;
+                //     _slimeMono.SlimeRB.velocity = vel;
+                // }
                 
                 Jump();
 
